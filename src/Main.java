@@ -13,117 +13,80 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-//        MainMM.randMessages();
         add_simbol();
     }
 
     private static void add_simbol() throws IOException {
 
 
-        Path path = Path.of(".\\cod1\\Test.txt");
-        List<String> list = Files.readAllLines(path);
+        File path_to_files = new File(".\\qqq");
+//        path_to_files - переменная, в которой содержиться путь к директории, где лежат файлы
+//        (если точка - значит текущая директория, где находятся файлы (либо файл)
+
+        String[] list_files = path_to_files.list();
+//        создаем пустой массив (список) String[] list_files, в который при помощи метода list()
+//        помещаем список файлов данной директории
 
 
-        String value = null;
-        for (String str : list)
-//            System.out.println(str);
-            value = str.replaceAll("1", "111");
-            System.out.println(value);
+        for (String name_file : list_files) {
+            System.out.println("name_file - " + name_file);
+//            создаем цикл, в котором перебираем каждый файл из списка (имена файлов)
+
+//            System.out.println(files);
 
 
+            File files1 = new File(".\\qqq\\" + name_file);
+//            формируем полный путь до файла, то есть директория + имя файла, чтоб в дальнейшем обращаться
+//            к самому файлу, к конечному объекту
+//            System.out.println(files1);
 
-//
-////        получить файл
-////        пройтись по каждой строчке
-////        произвести замену
-////        сохранить файл
-//
-////
-//        String file_name = "Test.txt";
-//
-//        File file = new File(".\\cod1", file_name);
-////        поместили в переменную file файл Test.txt
-//
-//        Scanner msg = new Scanner(new FileInputStream(file));
-////        считываем переменную file, то есть файл Test.txt
-//
-//        String s = msg.nextLine();
-////        в переменную s мы помещаем по одной строчки при каждом вызове метода nextLine()
-//
-//        while (msg.hasNextLine()) {
-////            цикл с условием, что мы пройдемся по всем строчкам файла дословно, что пока есть строчки, мы будем его выполнять
-//
-//            s = msg.nextLine();
-////            вызывая это строчку, мы каждый раз загружаем новую, следующую строчку в переменную S
-//
-//            String value = s.replaceAll("2", "22222");
-////            переменная value равно измененной правильной строчке
-//
-////            записать обратно в файл измененную строчку, либо создать новый файл тогда уж
-////
-//
-//
-//
-//            FileWriter messWrite = new FileWriter("Test1.txt", true);
-//            messWrite.write(value + "\n");
-//            messWrite.flush();
-//
-//
-//            System.out.println(s);
-//            System.out.println(value);
+            if (files1.isFile()) {
+//                проверка на то, что данный объект является файлом, а не директорией (каталог), может быть так
+//                что содержится подкаталог, который программа видит как объект и рабоате с ним, хотя нам нужны файлы
+//                System.out.println(files1);
 
+                Scanner one_file = new Scanner(new FileInputStream(files1));
+//                считываем файл переменную one_file
 
+                ArrayList<String> array_for_string = new ArrayList<String>();
+//                создаем пустой массив для помещения в него строк из файла
+
+                while (one_file.hasNextLine()) {
+//                цикл с условием, что мы пройдемся по всем строчкам файла
+
+                    String string_from_file = one_file.nextLine();
+//                     вызывая метод nextLine() мы загружаем следующую строчку в переменную string_from_file
+
+//                    String modified_string = string_from_file.replaceAll("# print", " print");
+                    String modified_string = string_from_file.replaceAll(" {2}print", "# print");
+
+                    array_for_string.add(modified_string);
+
+                    System.out.println("--------------------------------------------");
+                    System.out.println("изначальная строка: " + string_from_file);
+                    System.out.println("готовая строка: " + modified_string);
+                }
+
+                System.out.println("готовый массив " + array_for_string);
+
+                one_file.close();
+//                обязательно нужно закрыть поток, иначе файл не сможет удалиться, т.к будет открыт поток
+
+                boolean isDeleted = files1.delete();
+//                удаляем изначальный файл для того, чтоб создать новый с таким же именем
+                System.out.println("файл удален - " + isDeleted);
+
+                FileWriter write_to_finish_file = new FileWriter(".\\qqq\\" + name_file, true);
+
+                for (String mod_srt_from_array : array_for_string) {
+                    write_to_finish_file.write(mod_srt_from_array + "\n");
+                    write_to_finish_file.flush();
+
+                }
+            }
         }
-
-
-//            System.out.println(msg.next());
-
-
-//        System.out.println(s);
-//        s = msg.nextLine();
-//        System.out.println(s);
-//        s = msg.nextLine();
-//        System.out.println(s);
-
-        //        System.out.println(msg);
-
-//        while (msg.hasNextLine()) {
-//            System.out.println(msg.next());
-//        }
-//
-//        msg.close();
-
-//
-//        FileWriter messWrite = new FileWriter(".code_ready/Test.txt", true);
-//        messWrite.write(" ШУТКА" + "\n");
-//        messWrite.flush();
-
-
-//        File file = new File(".\\cod_ready", "Test.txt");
-
-
-//        File file = new File(".\\cod_ready", "Test.txt");
-//        File file = new File(".\\cod_ready", "Test.txt");
-//
-//        File file1 = new File("C:\\Test");
-//        String[] files1 = file.list();
-
-//        File file = new File(".\\cod_ready\\Test.txt" );
-//        System.out.println(file.getText());
-
-
-//        System.out.println("qqqq");
-//        System.out.println(file.getName());
-//        System.out.println(file.getPath());
-//        System.out.println(file1.list());
-
-//        File directory = new File("C:\\Test");
-//        File file = new File(directory, "Test.txt");
-//        System.out.println(file.getName());
     }
-
-
-
+}
 
 
 
