@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Android-M10:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Android_M10_jar</output-path>
+    <root id="archive" name="Android-M10.jar">
+      <element id="module-output" name="Android-M10" />
+    </root>
+  </artifact>
+</component>
